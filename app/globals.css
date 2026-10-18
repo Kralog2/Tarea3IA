@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body { background: #f7fafd; color: #1f3a5c; }
+.panel { background: #fff; border: 1px solid #d6e6f7; border-top: 4px solid #3b82c4; }
+.field { border: 1px solid #b5d2ef; background: #fff; padding: 0.35rem 0.5rem; width: 100%; }
+.field:focus { outline: 2px solid #5b9bd5; outline-offset: 0; }
