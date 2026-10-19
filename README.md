@@ -1,4 +1,4 @@
-# OptiLab — Laboratorio de búsqueda y optimización
+# Tarea 3 — Laboratorio de búsqueda y optimización
 
 Implementación y comparación experimental de **Backtracking con filtrado y ordenamiento**, **Recocido Simulado** y **Algoritmo Genético** aplicados a cuatro problemas: **N-Reinas**, **Mochila 0/1**, **Coloreado de Grafos** y **función Eggholder**.
 
@@ -192,6 +192,7 @@ El modelo de GPT se uso para resolver dudas y corregir archivos mal implementado
 Se utilizó para generar archivos de JavaScript para pruebas y eperimentación con los algoritmos corregidos:
 - experimentar_grafos.js
 - experimentar_mochila.js
+- experimentar_todo
 - worker_experimento.js
 
 Por ultimo se implemento en la importación de recursos y generación de gráficas con archivos en Python:
