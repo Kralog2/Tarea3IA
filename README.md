@@ -57,12 +57,14 @@ npm run start
 
 ```text
 app/
+  analisis/page.js            Pagina de resultados unificados
   page.js                     Página principal y selección de problemas
   problema/[id]/page.js       Ejecución y comparación desde la interfaz
   globals.css                 Estilos y variables de Tailwind
 components/
   Board.js                    Visualización de N-Reinas
   Chart.js                    Gráficas de resultados
+  ExperimentDashboard.js      Pantalla de resultados unificados
 lib/
   registry.js                 Registro de problemas, algoritmos y parámetros
   nqueens.js                  Algoritmos de N-Reinas
@@ -84,8 +86,6 @@ resultados/
   unificado/                  Registros consolidados y Excel
   mochila/                    Resultados específicos de Mochila
 ```
-
-La carpeta y la página de análisis comparativo (`app/analisis/`, `components/ExperimentDashboard.js`, etc.) corresponden a una **ampliación posterior del panel**, si está integrada en la versión de trabajo. No forman parte de la estructura del ZIP base revisado para este README.
 
 ## Contrato común de ejecución
 
@@ -166,6 +166,40 @@ La batería unificada incluida como referencia contiene **295 corridas**, de las
 
 El análisis e interpretación se encuentran en el **reporte técnico**. Para conclusiones válidas, se compara la calidad de las soluciones únicamente entre corridas de la misma instancia y con condiciones experimentales equivalentes.
 
+## Uso de Inteligencia Artificial Generativa
+
+Para esta actividad se conto con el uso de una inteligencia artificial generativa para desarrollar distintos puntos, corregir archivos y resolver dudas sobre el desarrollo.
+
+Se usaron el modelo de Claude Sonnet 5.5 y GPT 5 (o eso creo) para el desarrollo.
+
+### Claude Sonnet 5.5
+
+Claude fue el responsable de la parte visual del proyecto:
+- Estilo y colores de los contenedores
+- Distribución de los contenedores
+- integración de gráficas y estilo de las tablas
+
+### Chat GPT 5
+
+El modelo de GPT se uso para resolver dudas y corregir archivos mal implementados o codificados:
+- eggholder.js
+- graphcoloring.js
+- knapsack.js
+- nqueens.js
+- registry
+- mg.js
+
+Se utilizó para generar archivos de JavaScript para pruebas y eperimentación con los algoritmos corregidos:
+- experimentar_grafos.js
+- experimentar_mochila.js
+- worker_experimento.js
+
+Por ultimo se implemento en la importación de recursos y generación de gráficas con archivos en Python:
+- generar_graficas_reporte
+- import_knapsack
+
+Este README.md fue en parte generado por este mismo modelo pero fue mejorado y corregido para coincidir con la estructura del trabajo.
+
 ## Entregables de la actividad
 
 1. **Código fuente y aplicación:** este repositorio de GitHub.
@@ -180,4 +214,4 @@ El análisis e interpretación se encuentran en el **reporte técnico**. Para co
 
 ---
 
-**OptiLab · Tarea 3 de Inteligencia Artificial** — laboratorio de búsqueda, optimización y análisis experimental reproducible.
+**Tarea 3 de Inteligencia Artificial** — laboratorio de búsqueda, optimización y análisis experimental reproducible.

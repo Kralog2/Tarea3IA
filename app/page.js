@@ -9,7 +9,18 @@ export default function Home() {
         Elige un problema y compara cómo lo resuelven la búsqueda sistemática,
         el recocido simulado y el algoritmo genético.
       </p>
-      <Link href="/analisis" className="panel p-5 mt-7 flex items-center justify-between hover:bg-pastel-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-pastel-500"><div><h2 className="font-semibold">Análisis experimental</h2><p className="text-sm text-pastel-700 mt-1">Resultados, convergencia y escalabilidad de los cuatro problemas.</p></div><span aria-hidden="true">→</span></Link>
+      <Link
+        href="/analisis"
+        className="panel p-5 mt-7 flex items-center justify-between hover:bg-pastel-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-pastel-500"
+      >
+        <div>
+          <h2 className="font-semibold">Análisis experimental</h2>
+          <p className="text-sm text-pastel-700 mt-1">
+            Resultados, convergencia y escalabilidad de los cuatro problemas.
+          </p>
+        </div>
+        <span aria-hidden="true">→</span>
+      </Link>
       <div className="mt-10 grid gap-6 sm:grid-cols-2">
         {Object.entries(PROBLEMS).map(([id, p]) => (
           <Link

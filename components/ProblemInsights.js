@@ -1,42 +1,359 @@
 "use client";
 import { useMemo } from "react";
 
-const labels = {bt:"Backtracking",sa:"Recocido simulado",ga:"Algoritmo genético"};
-const colors = {bt:"#2c64a0",sa:"#059669",ga:"#a855a4"};
-const fmt=(n,d=2)=>n==null||!Number.isFinite(n)?"—":n.toLocaleString("es-MX",{maximumFractionDigits:d});
-const median=(values)=>{const v=values.filter(Number.isFinite).sort((a,b)=>a-b);return v.length?(v[(v.length-1)>>1]+v[v.length>>1])/2:null;};
-const good=r=>r.estado==="ok"&&r.dentro_presupuesto===true&&r.factible===true&&Number.isFinite(Number(r.objetivo));
-const numeric=(v)=>v==null||v===""?null:Number.isFinite(Number(v))?Number(v):null;
-function Scatter({rows,metric,title,description}) {
-  const plotted=rows.filter(r=>numeric(r[metric])!==null);
-  if(!plotted.length)return <p className="text-sm text-pastel-700">Sin datos registrados para esta métrica.</p>;
-  const W=720,H=254,L=62,R=22,T=20,B=45;
-  const vals=plotted.map(r=>Number(r[metric])); const lo=Math.min(...vals),hi=Math.max(...vals),span=Math.max(1e-9,hi-lo);
-  const sy=v=>T+(hi-v)/span*(H-T-B);
-  const algos=["bt","sa","ga"].filter(a=>plotted.some(r=>r.algoritmo===a));
-  const sx=a=>L+(algos.indexOf(a)+.5)*(W-L-R)/algos.length;
-  return <div><h3 className="font-semibold text-sm mb-1">{title}</h3><svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={title} className="w-full">
-    {[0,.25,.5,.75,1].map((q,i)=>{const v=lo+(hi-lo)*q,y=sy(v);return <g key={i}><line x1={L} x2={W-R} y1={y} y2={y} stroke="#d6e6f7"/><text x={L-8} y={y+4} textAnchor="end" fontSize="11" fill="#2c64a0">{fmt(v,2)}</text></g>})}
-    {plotted.map((r,i)=><circle key={`${r.algoritmo}-${r.semilla}-${i}`} cx={sx(r.algoritmo)+((Number(r.semilla)%7)-3)*4} cy={sy(Number(r[metric]))} r="4" fill={colors[r.algoritmo]||"#2c64a0"} opacity=".68"><title>{`${labels[r.algoritmo]} · semilla ${r.semilla}: ${fmt(Number(r[metric]))}`}</title></circle>)}
-    {algos.map(a=><text key={a} x={sx(a)} y={H-16} textAnchor="middle" fontSize="12" fill="#2c64a0">{a.toUpperCase()}</text>)}
-  </svg><p className="text-xs text-pastel-700">{description}</p></div>;
+const labels = {
+  bt: "Backtracking",
+  sa: "Recocido simulado",
+  ga: "Algoritmo genético",
+};
+const colors = { bt: "#2c64a0", sa: "#059669", ga: "#a855a4" };
+const fmt = (n, d = 2) =>
+  n == null || !Number.isFinite(n)
+    ? "—"
+    : n.toLocaleString("es-MX", { maximumFractionDigits: d });
+const median = (values) => {
+  const v = values.filter(Number.isFinite).sort((a, b) => a - b);
+  return v.length ? (v[(v.length - 1) >> 1] + v[v.length >> 1]) / 2 : null;
+};
+const good = (r) =>
+  r.estado === "ok" &&
+  r.dentro_presupuesto === true &&
+  r.factible === true &&
+  Number.isFinite(Number(r.objetivo));
+const numeric = (v) =>
+  v == null || v === "" ? null : Number.isFinite(Number(v)) ? Number(v) : null;
+function Scatter({ rows, metric, title, description }) {
+  const plotted = rows.filter((r) => numeric(r[metric]) !== null);
+  if (!plotted.length)
+    return (
+      <p className="text-sm text-pastel-700">
+        Sin datos registrados para esta métrica.
+      </p>
+    );
+  const W = 720,
+    H = 254,
+    L = 62,
+    R = 22,
+    T = 20,
+    B = 45;
+  const vals = plotted.map((r) => Number(r[metric]));
+  const lo = Math.min(...vals),
+    hi = Math.max(...vals),
+    span = Math.max(1e-9, hi - lo);
+  const sy = (v) => T + ((hi - v) / span) * (H - T - B);
+  const algos = ["bt", "sa", "ga"].filter((a) =>
+    plotted.some((r) => r.algoritmo === a),
+  );
+  const sx = (a) => L + ((algos.indexOf(a) + 0.5) * (W - L - R)) / algos.length;
+  return (
+    <div>
+      <h3 className="font-semibold text-sm mb-1">{title}</h3>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        role="img"
+        aria-label={title}
+        className="w-full"
+      >
+        {[0, 0.25, 0.5, 0.75, 1].map((q, i) => {
+          const v = lo + (hi - lo) * q,
+            y = sy(v);
+          return (
+            <g key={i}>
+              <line x1={L} x2={W - R} y1={y} y2={y} stroke="#d6e6f7" />
+              <text
+                x={L - 8}
+                y={y + 4}
+                textAnchor="end"
+                fontSize="11"
+                fill="#2c64a0"
+              >
+                {fmt(v, 2)}
+              </text>
+            </g>
+          );
+        })}
+        {plotted.map((r, i) => (
+          <circle
+            key={`${r.algoritmo}-${r.semilla}-${i}`}
+            cx={sx(r.algoritmo) + ((Number(r.semilla) % 7) - 3) * 4}
+            cy={sy(Number(r[metric]))}
+            r="4"
+            fill={colors[r.algoritmo] || "#2c64a0"}
+            opacity=".68"
+          >
+            <title>{`${labels[r.algoritmo]} · semilla ${r.semilla}: ${fmt(Number(r[metric]))}`}</title>
+          </circle>
+        ))}
+        {algos.map((a) => (
+          <text
+            key={a}
+            x={sx(a)}
+            y={H - 16}
+            textAnchor="middle"
+            fontSize="12"
+            fill="#2c64a0"
+          >
+            {a.toUpperCase()}
+          </text>
+        ))}
+      </svg>
+      <p className="text-xs text-pastel-700">{description}</p>
+    </div>
+  );
 }
-export default function ProblemInsights({corridas,problem,instance}){
- const rows=useMemo(()=>corridas.filter(r=>r.problema===problem&&r.instancia===instance),[corridas,problem,instance]);
- const all=useMemo(()=>corridas.filter(r=>r.problema===problem),[corridas,problem]);
- const valid=rows.filter(good), incomplete=rows.filter(r=>r.estado==="ok"&&r.dentro_presupuesto===true&&!r.factible),outside=rows.filter(r=>r.dentro_presupuesto!==true),errors=rows.filter(r=>r.estado!=="ok");
- const byAlgo=[...new Set(rows.map(r=>r.algoritmo))].map(a=>({a,all:rows.filter(r=>r.algoritmo===a),valid:valid.filter(r=>r.algoritmo===a)}));
- const sizes=[...new Set(all.map(r=>r.tamano))].sort((a,b)=>a-b);
- return <div className="space-y-6">
-  <section className="panel p-5 space-y-3"><h2 className="text-lg font-semibold">Diagnóstico de ejecuciones · {instance}</h2>
-   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">{[["Factibles y dentro del límite",valid.length],["Sin solución factible",incomplete.length],["Fuera de presupuesto",outside.length],["Errores",errors.length]].map(([label,value])=><div key={label} className="bg-pastel-100 p-3"><p className="text-xs text-pastel-700">{label}</p><p className="text-xl font-semibold mt-1">{value}</p></div>)}</div>
-   <p className="text-xs text-pastel-700">"Sin solución factible" no significa fallo del programa. Una corrida fuera de presupuesto puede conservar una solución factible, pero se excluye de las estadísticas principales.</p>
-  </section>
-  {problem==="reinas"&&<section className="panel p-5 space-y-3"><h2 className="text-lg font-semibold">N-Reinas · conflictos y tasa de éxito</h2><p className="text-sm text-pastel-700">Una solución es factible únicamente cuando asigna las N reinas sin ataques. No equiparamos una ejecución terminada a una solución válida.</p><table className="w-full text-sm"><thead className="bg-pastel-100"><tr><th className="p-2 text-left">Algoritmo</th><th className="p-2 text-right">Factibles</th><th className="p-2 text-right">Sin solución</th><th className="p-2 text-right">Tiempo mediano (ms)</th></tr></thead><tbody>{byAlgo.map(x=><tr className="border-b border-pastel-200" key={x.a}><td className="p-2">{labels[x.a]}</td><td className="p-2 text-right">{x.valid.length}/{x.all.length}</td><td className="p-2 text-right">{x.all.filter(r=>r.estado==="ok"&&!r.factible).length}</td><td className="p-2 text-right">{fmt(median(x.valid.map(r=>numeric(r.tiempo_ms))))}</td></tr>)}</tbody></table></section>}
-  {problem==="mochila"&&<section className="panel p-5 space-y-3"><h2 className="text-lg font-semibold">Mochila 0/1 · valor, peso y óptimo demostrado</h2><p className="text-sm text-pastel-700">Se maximiza el beneficio sujeto a la capacidad. Una coincidencia con el mejor valor observado no demuestra optimalidad por sí sola.</p><div className="overflow-x-auto"><table className="w-full text-sm"><thead className="bg-pastel-100"><tr><th className="p-2 text-left">Algoritmo</th><th className="p-2 text-right">Valor mediano</th><th className="p-2 text-right">Peso mediano</th><th className="p-2 text-right">Óptimo demostrado</th></tr></thead><tbody>{byAlgo.map(x=><tr className="border-b border-pastel-200" key={x.a}><td className="p-2">{labels[x.a]}</td><td className="p-2 text-right">{fmt(median(x.valid.map(r=>numeric(r.objetivo))))}</td><td className="p-2 text-right">{fmt(median(x.valid.map(r=>numeric(r.peso))))}</td><td className="p-2 text-right">{x.valid.filter(r=>r.optimo_demostrado===true).length}/{x.valid.length}</td></tr>)}</tbody></table></div></section>}
-  {problem==="grafos"&&<section className="panel p-5 space-y-3"><h2 className="text-lg font-semibold">Coloreado · colores y conflictos</h2><p className="text-sm text-pastel-700">Se minimizan los colores solo entre coloraciones completas y sin conflictos. Cuatro colores no implica número cromático óptimo demostrado.</p><div className="overflow-x-auto"><table className="w-full text-sm"><thead className="bg-pastel-100"><tr><th className="p-2 text-left">Algoritmo</th><th className="p-2 text-right">Colores iniciales</th><th className="p-2 text-right">Colores finales</th><th className="p-2 text-right">Mejoras medianas</th><th className="p-2 text-right">Conflictos finales</th></tr></thead><tbody>{byAlgo.map(x=><tr className="border-b border-pastel-200" key={x.a}><td className="p-2">{labels[x.a]}</td><td className="p-2 text-right">{fmt(median(x.valid.map(r=>numeric(r.valor_inicial))))}</td><td className="p-2 text-right">{fmt(median(x.valid.map(r=>numeric(r.colores))))}</td><td className="p-2 text-right">{fmt(median(x.valid.map(r=>numeric(r.mejoras))))}</td><td className="p-2 text-right">{fmt(median(x.valid.map(r=>numeric(r.conflictos))))}</td></tr>)}</tbody></table></div></section>}
-  {problem==="eggholder"&&<section className="panel p-5 space-y-3"><h2 className="text-lg font-semibold">Eggholder · variabilidad entre semillas</h2><p className="text-sm text-pastel-700">Minimización continua; las corridas no demuestran un mínimo global. La dispersión entre semillas revela sensibilidad estocástica.</p><Scatter rows={valid} metric="objetivo" title="Valores finales por corrida" description="Cada punto representa una corrida válida; menor valor significa mejor resultado."/></section>}
-  <section className="panel p-5 space-y-3"><h2 className="text-lg font-semibold">Dispersión por semilla</h2><Scatter rows={valid} metric="tiempo_ms" title="Tiempo de ejecución por semilla (ms)" description="Se muestran únicamente corridas factibles dentro del presupuesto. Los puntos ligeramente desplazados permiten distinguir semillas repetidas."/></section>
-  {(problem==="grafos"||problem==="reinas")&&<section className="panel p-5 space-y-3"><h2 className="text-lg font-semibold">Escalabilidad · tasa de factibilidad</h2><div className="overflow-x-auto"><table className="w-full text-sm"><thead className="bg-pastel-100"><tr><th className="p-2 text-left">Tamaño</th>{byAlgo.map(x=><th key={x.a} className="p-2 text-right">{labels[x.a]}</th>)}</tr></thead><tbody>{sizes.map(s=><tr key={s} className="border-b border-pastel-200"><td className="p-2">{s}</td>{byAlgo.map(x=>{const subs=all.filter(r=>r.tamano===s&&r.algoritmo===x.a);return <td key={x.a} className="p-2 text-right">{fmt(subs.length?100*subs.filter(good).length/subs.length:null,1)}%</td>})}</tr>)}</tbody></table></div><p className="text-xs text-pastel-700">La tasa combina validez de la solución y cumplimiento de presupuesto; no es una medida de optimalidad.</p></section>}
- </div>;
+export default function ProblemInsights({ corridas, problem, instance }) {
+  const rows = useMemo(
+    () =>
+      corridas.filter(
+        (r) => r.problema === problem && r.instancia === instance,
+      ),
+    [corridas, problem, instance],
+  );
+  const all = useMemo(
+    () => corridas.filter((r) => r.problema === problem),
+    [corridas, problem],
+  );
+  const valid = rows.filter(good),
+    incomplete = rows.filter(
+      (r) => r.estado === "ok" && r.dentro_presupuesto === true && !r.factible,
+    ),
+    outside = rows.filter((r) => r.dentro_presupuesto !== true),
+    errors = rows.filter((r) => r.estado !== "ok");
+  const byAlgo = [...new Set(rows.map((r) => r.algoritmo))].map((a) => ({
+    a,
+    all: rows.filter((r) => r.algoritmo === a),
+    valid: valid.filter((r) => r.algoritmo === a),
+  }));
+  const sizes = [...new Set(all.map((r) => r.tamano))].sort((a, b) => a - b);
+  return (
+    <div className="space-y-6">
+      <section className="panel p-5 space-y-3">
+        <h2 className="text-lg font-semibold">
+          Diagnóstico de ejecuciones · {instance}
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+          {[
+            ["Factibles y dentro del límite", valid.length],
+            ["Sin solución factible", incomplete.length],
+            ["Fuera de presupuesto", outside.length],
+            ["Errores", errors.length],
+          ].map(([label, value]) => (
+            <div key={label} className="bg-pastel-100 p-3">
+              <p className="text-xs text-pastel-700">{label}</p>
+              <p className="text-xl font-semibold mt-1">{value}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-xs text-pastel-700">
+          "Sin solución factible" no significa fallo del programa. Una corrida
+          fuera de presupuesto puede conservar una solución factible, pero se
+          excluye de las estadísticas principales.
+        </p>
+      </section>
+      {problem === "reinas" && (
+        <section className="panel p-5 space-y-3">
+          <h2 className="text-lg font-semibold">
+            N-Reinas · conflictos y tasa de éxito
+          </h2>
+          <p className="text-sm text-pastel-700">
+            Una solución es factible únicamente cuando asigna las N reinas sin
+            ataques. No equiparamos una ejecución terminada a una solución
+            válida.
+          </p>
+          <table className="w-full text-sm">
+            <thead className="bg-pastel-100">
+              <tr>
+                <th className="p-2 text-left">Algoritmo</th>
+                <th className="p-2 text-right">Factibles</th>
+                <th className="p-2 text-right">Sin solución</th>
+                <th className="p-2 text-right">Tiempo mediano (ms)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {byAlgo.map((x) => (
+                <tr className="border-b border-pastel-200" key={x.a}>
+                  <td className="p-2">{labels[x.a]}</td>
+                  <td className="p-2 text-right">
+                    {x.valid.length}/{x.all.length}
+                  </td>
+                  <td className="p-2 text-right">
+                    {
+                      x.all.filter((r) => r.estado === "ok" && !r.factible)
+                        .length
+                    }
+                  </td>
+                  <td className="p-2 text-right">
+                    {fmt(median(x.valid.map((r) => numeric(r.tiempo_ms))))}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      )}
+      {problem === "mochila" && (
+        <section className="panel p-5 space-y-3">
+          <h2 className="text-lg font-semibold">
+            Mochila 0/1 · valor, peso y óptimo demostrado
+          </h2>
+          <p className="text-sm text-pastel-700">
+            Se maximiza el beneficio sujeto a la capacidad. Una coincidencia con
+            el mejor valor observado no demuestra optimalidad por sí sola.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead className="bg-pastel-100">
+                <tr>
+                  <th className="p-2 text-left">Algoritmo</th>
+                  <th className="p-2 text-right">Valor mediano</th>
+                  <th className="p-2 text-right">Peso mediano</th>
+                  <th className="p-2 text-right">Óptimo demostrado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {byAlgo.map((x) => (
+                  <tr className="border-b border-pastel-200" key={x.a}>
+                    <td className="p-2">{labels[x.a]}</td>
+                    <td className="p-2 text-right">
+                      {fmt(median(x.valid.map((r) => numeric(r.objetivo))))}
+                    </td>
+                    <td className="p-2 text-right">
+                      {fmt(median(x.valid.map((r) => numeric(r.peso))))}
+                    </td>
+                    <td className="p-2 text-right">
+                      {
+                        x.valid.filter((r) => r.optimo_demostrado === true)
+                          .length
+                      }
+                      /{x.valid.length}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+      {problem === "grafos" && (
+        <section className="panel p-5 space-y-3">
+          <h2 className="text-lg font-semibold">
+            Coloreado · colores y conflictos
+          </h2>
+          <p className="text-sm text-pastel-700">
+            Se minimizan los colores solo entre coloraciones completas y sin
+            conflictos. Cuatro colores no implica número cromático óptimo
+            demostrado.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead className="bg-pastel-100">
+                <tr>
+                  <th className="p-2 text-left">Algoritmo</th>
+                  <th className="p-2 text-right">Colores iniciales</th>
+                  <th className="p-2 text-right">Colores finales</th>
+                  <th className="p-2 text-right">Mejoras medianas</th>
+                  <th className="p-2 text-right">Conflictos finales</th>
+                </tr>
+              </thead>
+              <tbody>
+                {byAlgo.map((x) => (
+                  <tr className="border-b border-pastel-200" key={x.a}>
+                    <td className="p-2">{labels[x.a]}</td>
+                    <td className="p-2 text-right">
+                      {fmt(
+                        median(x.valid.map((r) => numeric(r.valor_inicial))),
+                      )}
+                    </td>
+                    <td className="p-2 text-right">
+                      {fmt(median(x.valid.map((r) => numeric(r.colores))))}
+                    </td>
+                    <td className="p-2 text-right">
+                      {fmt(median(x.valid.map((r) => numeric(r.mejoras))))}
+                    </td>
+                    <td className="p-2 text-right">
+                      {fmt(median(x.valid.map((r) => numeric(r.conflictos))))}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+      {problem === "eggholder" && (
+        <section className="panel p-5 space-y-3">
+          <h2 className="text-lg font-semibold">
+            Eggholder · variabilidad entre semillas
+          </h2>
+          <p className="text-sm text-pastel-700">
+            Minimización continua; las corridas no demuestran un mínimo global.
+            La dispersión entre semillas revela sensibilidad estocástica.
+          </p>
+          <Scatter
+            rows={valid}
+            metric="objetivo"
+            title="Valores finales por corrida"
+            description="Cada punto representa una corrida válida; menor valor significa mejor resultado."
+          />
+        </section>
+      )}
+      <section className="panel p-5 space-y-3">
+        <h2 className="text-lg font-semibold">Dispersión por semilla</h2>
+        <Scatter
+          rows={valid}
+          metric="tiempo_ms"
+          title="Tiempo de ejecución por semilla (ms)"
+          description="Se muestran únicamente corridas factibles dentro del presupuesto. Los puntos ligeramente desplazados permiten distinguir semillas repetidas."
+        />
+      </section>
+      {(problem === "grafos" || problem === "reinas") && (
+        <section className="panel p-5 space-y-3">
+          <h2 className="text-lg font-semibold">
+            Escalabilidad · tasa de factibilidad
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead className="bg-pastel-100">
+                <tr>
+                  <th className="p-2 text-left">Tamaño</th>
+                  {byAlgo.map((x) => (
+                    <th key={x.a} className="p-2 text-right">
+                      {labels[x.a]}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {sizes.map((s) => (
+                  <tr key={s} className="border-b border-pastel-200">
+                    <td className="p-2">{s}</td>
+                    {byAlgo.map((x) => {
+                      const subs = all.filter(
+                        (r) => r.tamano === s && r.algoritmo === x.a,
+                      );
+                      return (
+                        <td key={x.a} className="p-2 text-right">
+                          {fmt(
+                            subs.length
+                              ? (100 * subs.filter(good).length) / subs.length
+                              : null,
+                            1,
+                          )}
+                          %
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-pastel-700">
+            La tasa combina validez de la solución y cumplimiento de
+            presupuesto; no es una medida de optimalidad.
+          </p>
+        </section>
+      )}
+    </div>
+  );
 }
