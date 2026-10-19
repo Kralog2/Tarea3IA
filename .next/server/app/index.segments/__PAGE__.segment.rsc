@@ -1,0 +1,28 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/0umf92h1sb77c.js"
+3:I[39756,["$2"],"default"]
+4:I[37457,["$2"],"default"]
+8:"/_next/static/chunks/2n5qeheznvl4u.js"
+9:I[22016,["$2","$8"],""]
+f:"ViewportBoundary"
+10:I[97367,["$2"],"$f"]
+11:"MetadataBoundary"
+12:I[97367,["$2"],"$11"]
+13:"$Sreact.suspense"
+:HL["/_next/static/chunks/1i-30lypgzcsr.css","style"]
+6:X
+7:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","main",null,{"className":"max-w-5xl mx-auto px-6 py-12","children":[["$","h1",null,{"className":"text-3xl font-semibold","children":"Búsqueda y optimización"}],["$","p",null,{"className":"mt-2 text-pastel-700 max-w-xl","children":"Elige un problema y compara cómo lo resuelven la búsqueda sistemática, el recocido simulado y el algoritmo genético."}],["$","div",null,{"className":"mt-10 grid gap-6 sm:grid-cols-2","children":[["$","$L9","nreinas",{"href":"/problema/nreinas","className":"panel p-6 block hover:bg-pastel-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-pastel-500","children":[["$","h2",null,{"className":"text-xl font-semibold","children":"N-Reinas"}],["$","p",null,{"className":"text-sm text-pastel-600 mt-1","children":"Satisfacción de restricciones"}],["$","p",null,{"className":"mt-4 text-sm","children":"Coloca N reinas en un tablero NxN sin que se ataquen."}],["$","p",null,{"className":"mt-4 text-xs text-pastel-700","children":"3 algoritmos disponibles"}]]}],["$","$L9","mochila",{"href":"/problema/mochila","className":"panel p-6 block hover:bg-pastel-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-pastel-500","children":[["$","h2",null,{"className":"text-xl font-semibold","children":"Mochila 0/1"}],["$","p",null,{"className":"text-sm text-pastel-600 mt-1","children":"Optimización con restricción de capacidad"}],["$","p",null,{"className":"mt-4 text-sm","children":"Elige objetos que maximicen el valor sin exceder la capacidad."}],["$","p",null,{"className":"mt-4 text-xs text-pastel-700","children":"3 algoritmos disponibles"}]]}],["$","$L9","grafos",{"href":"/problema/grafos","className":"panel p-6 block hover:bg-pastel-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-pastel-500","children":[["$","h2",null,{"className":"text-xl font-semibold","children":"Coloreado de grafos"}],["$","p",null,{"className":"text-sm text-pastel-600 mt-1","children":"Escalabilidad (50 y 1000 nodos)"}],["$","p",null,{"className":"mt-4 text-sm","children":"Asigna colores a los nodos sin que dos vecinos coincidan."}],["$","p",null,{"className":"mt-4 text-xs text-pastel-700","children":"Algoritmos pendientes de integrar"}]]}],["$","$L9","eggholder",{"href":"/problema/eggholder","className":"panel p-6 block hover:bg-pastel-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-pastel-500","children":[["$","h2",null,{"className":"text-xl font-semibold","children":"Función Eggholder"}],["$","p",null,{"className":"text-sm text-pastel-600 mt-1","children":"Optimización continua global"}],"$La","$Lb"]}]]}]]}],["$Lc"],"$Ld"]}],"p":"$@e","v":null,"s":"$6"}}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/1i-30lypgzcsr.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/0umf92h1sb77c.js","async":true}]],["$","html",null,{"lang":"es","children":["$","body",null,{"className":"min-h-screen font-sans","children":["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]}]]}],"p":"$@5","v":null,"s":"$6"},"c":"$Q7"},"h":{"r":["$","$1","h",{"children":[null,["$","$L10",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L12",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$13",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"T3 · Búsqueda y optimización"}]]}]}],null]}],null]}],"p":"$@14","v":null,"s":"$6"}},"a":"$@15","u":"$@16","b":"8XEuJ-YprhSxGfj3ankYN"}
+17:I[97367,["$2"],"OutletBoundary"]
+a:["$","p",null,{"className":"mt-4 text-sm","children":"Minimiza una superficie con muchísimos mínimos locales."}]
+b:["$","p",null,{"className":"mt-4 text-xs text-pastel-700","children":"2 algoritmos disponibles"}]
+c:["$","script","script-0",{"src":"/_next/static/chunks/2n5qeheznvl4u.js","async":true}]
+d:["$","$L17",null,{"children":["$","$13",null,{"name":"Next.MetadataOutlet","children":"$@18"}]}]
+6:300
+18:null
+16:true
+6:C
+15:0
+5:"$undefined"
+14:"$undefined"
+e:"$undefined"
